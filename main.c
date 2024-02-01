@@ -27,7 +27,8 @@ int main (int argc, char *argv[]) {
         printf("3. Give money to another accountt\n");
         printf("4. Register an account\n");
         printf("5. log into an account\n");
-        printf("6. quit the application\n\n");
+        printf("5. log out of an account\n");
+        printf("7. quit the application\n\n");
         printf("Enter Argument: ");
 
         scanf("%19s", str1);
@@ -46,6 +47,7 @@ int main (int argc, char *argv[]) {
 
         else if(!strcmp("2",str1)){
             printf("\nyou have decided to draw money");
+            draw(&bank,&loggedacc);
             
         }
 
@@ -67,6 +69,11 @@ int main (int argc, char *argv[]) {
         }
 
         else if(!strcmp("6",str1)){
+            printf("\nyou have decided to log out");
+            loggedacc.name = "";
+        }
+
+        else if(!strcmp("7",str1)){
             break;
         }
 

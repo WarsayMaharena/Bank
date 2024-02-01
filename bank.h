@@ -173,7 +173,7 @@ void draw(struct Bank *bank, struct Account *logged) {
             printf("\e[1;1H\e[2J");
             logged->balance=logged->balance-amount;
             bank->account[logged->id].balance=bank->account[logged->id].balance-amount;
-            printf("you deposited %d of money, %s",amount, logged->name);
+            printf("you have drawn %d of money, %s",amount, logged->name);
             return;
         }
 
