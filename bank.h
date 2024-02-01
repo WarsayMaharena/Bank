@@ -119,6 +119,66 @@ void give_money(struct Bank *bank, struct Account *logged){
     
 }
 
-void deposit(struct Account account,int deposit){
+void deposit(struct Bank *bank, struct Account *logged) {
+    printf("\e[1;1H\e[2J");
+    printf("How much money do you want to deposit?\n\n set an amount by typing the amount and name \"amount name\", or just type \"quit 0\"\n\nEnter Argument: ");
+    char name[20];
+    char *old_amount;
+
+    scanf("%19s",old_amount);
+    int amount = atoi(old_amount);
+    if(!strcmp(name,"quit")||!strcmp(name,"Quit")){ //see if user wants to quit
+        printf("\e[1;1H\e[2J");
+        printf("Quit!");
+        return;
+    }
+
+    for(int i = 0; i<30; i++){
+        if(!strcmp(bank->account[i].name, logged->name)){
+            printf("\e[1;1H\e[2J");
+            logged->balance=logged->balance+amount;
+            bank->account[logged->id].balance=bank->account[logged->id].balance+amount;
+            printf("you deposited %d of money, %s",amount, logged->name);
+            return;
+        }
+
+    }
+    printf("\e[1;1H\e[2J");
+    printf("\n your friend doesn't exist!");
     
+
 }
+
+void draw(struct Bank *bank, struct Account *logged) {
+    printf("\e[1;1H\e[2J");
+    printf("How much money do you want to draw?\n\n set an amount by typing the amount and name \"amount name\", or just type \"quit 0\"\n\nEnter Argument: ");
+    char name[20];
+    char *old_amount;
+
+    scanf("%19s",old_amount);
+    int amount = atoi(old_amount);
+    if(!strcmp(name,"quit")||!strcmp(name,"Quit")){ //see if user wants to quit
+        printf("\e[1;1H\e[2J");
+        printf("Quit!");
+        return;
+    }
+
+    for(int i = 0; i<30; i++){
+        if(logged->balance<amount){
+            printf("\e[1;1H\e[2J");
+            printf("you don't have enough money!");
+            return;
+        }
+        else if(!strcmp(bank->account[i].name, logged->name)){
+            printf("\e[1;1H\e[2J");
+            logged->balance=logged->balance-amount;
+            bank->account[logged->id].balance=bank->account[logged->id].balance-amount;
+            printf("you deposited %d of money, %s",amount, logged->name);
+            return;
+        }
+
+    }
+    printf("\e[1;1H\e[2J");
+    printf("\n your friend doesn't exist!");
+    
+

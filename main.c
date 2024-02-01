@@ -14,6 +14,7 @@ int main (int argc, char *argv[]) {
     }
     
     struct Account loggedacc;
+    loggedacc.name="";
     //bank.account[0]=create_account("Warsay Maharena", "SPONYSTREET");
     while(1){
  
@@ -32,8 +33,14 @@ int main (int argc, char *argv[]) {
         scanf("%19s", str1);
         printf("\e[1;1H\e[2J");
 
-        if(!strcmp("1",str1)){
+        if(strcmp("4",str1) && strcmp("5",str1) && loggedacc.name == ""){
+            printf("\nyou aren't logged in!");
+
+        }
+
+        else if(!strcmp("1",str1)){
             printf("\nyou have decided to set a deposit");
+            deposit(&bank,&loggedacc);
             
         }
 
