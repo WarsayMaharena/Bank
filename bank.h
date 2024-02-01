@@ -4,9 +4,9 @@
 
 struct Account{
     int balance;
-    char *name;
+    char name[20];
     int id;
-    char *password;
+    char password[20];
 };
 
 struct Bank{
@@ -26,22 +26,21 @@ void create_account(struct Bank *bank){
         printf("Quit!");
         return;
     }
-    struct Account account;                     //create account struct
-    account.name = name;
-    account.password = password;
 
     for(int i=0; i<30; i++){
 
-        if(bank->account[i].name == name){      //check if name exists
+        if(!strcmp(bank->account[i].name, name)){      //check if name exists
             printf("\e[1;1H\e[2J");
             printf("User already Exists!");
             break;
         }
 
         else if(bank->account[i].id==0){    //check if index is not taken
-            account.id = i;
-            account.balance = 0;
-            bank->account[i] = account;
+            bank->account[i].id=i+1;
+            bank->account[i].balance=0;
+            strcpy(bank->account[i].name,name);
+            strcpy(bank->account[i].password,password);
+             
             printf("\e[1;1H\e[2J");
             printf("Welcome: %s!", name);
             break;
@@ -72,8 +71,8 @@ void log_into_account(struct Bank *bank, struct Account *logged){
         if(strcmp(bank->account[i].name, name) == 0 && strcmp(bank->account[i].password, password) == 0){
             printf("\e[1;1H\e[2J");
             printf("You have logged in!");
-            logged->name=name;
-            logged->id=i;
+            strcpy(logged->name,name);
+            logged->id=i+1;
             logged->balance=bank->account[i].balance;
             return;
 
@@ -88,10 +87,9 @@ void give_money(struct Bank *bank, struct Account *logged){
     printf("\e[1;1H\e[2J");
     printf("Who do you want to give your money to?\n\n give monet by typing the amount and name \"amount name\", or just type \"quit 0\"\n\nEnter Argument: ");
     char name[20];
-    char *old_amount;
-    
-    scanf("%19s %19s", name, old_amount);
-    int amount = atoi(old_amount);
+    int amount;
+
+    scanf("%19s %d",name, &amount);
     if(!strcmp(name,"quit")||!strcmp(name,"Quit")){ //see if user wants to quit
         printf("\e[1;1H\e[2J");
         printf("Quit!");
@@ -107,7 +105,7 @@ void give_money(struct Bank *bank, struct Account *logged){
         else if(!strcmp(bank->account[i].name, name)){
             printf("\e[1;1H\e[2J");
             logged->balance=logged->balance-amount;
-            bank->account[logged->id].balance=bank->account[logged->id].balance-amount;
+            bank->account[logged->id-1].balance=bank->account[logged->id-1].balance-amount;
             bank->account[i].balance=bank->account[i].balance+amount;
             printf("you gave %s %d of money",bank->account[i].name,amount);
             return;
@@ -121,12 +119,11 @@ void give_money(struct Bank *bank, struct Account *logged){
 
 void deposit(struct Bank *bank, struct Account *logged) {
     printf("\e[1;1H\e[2J");
-    printf("How much money do you want to deposit?\n\n set an amount by typing the amount and name \"amount name\", or just type \"quit 0\"\n\nEnter Argument: ");
+    printf("How much money do you want to deposit?\n\n set an amount by typing the amount \"give {amount}\", or just type \"quit 0\"\n\nEnter Argument: ");
     char name[20];
-    char *old_amount;
+    int amount;
 
-    scanf("%19s",old_amount);
-    int amount = atoi(old_amount);
+    scanf("%19s %d",name, &amount);
     if(!strcmp(name,"quit")||!strcmp(name,"Quit")){ //see if user wants to quit
         printf("\e[1;1H\e[2J");
         printf("Quit!");
@@ -137,7 +134,7 @@ void deposit(struct Bank *bank, struct Account *logged) {
         if(!strcmp(bank->account[i].name, logged->name)){
             printf("\e[1;1H\e[2J");
             logged->balance=logged->balance+amount;
-            bank->account[logged->id].balance=bank->account[logged->id].balance+amount;
+            bank->account[logged->id-1].balance=bank->account[logged->id-1].balance+amount;
             printf("you deposited %d of money, %s",amount, logged->name);
             return;
         }
@@ -151,12 +148,12 @@ void deposit(struct Bank *bank, struct Account *logged) {
 
 void draw(struct Bank *bank, struct Account *logged) {
     printf("\e[1;1H\e[2J");
-    printf("How much money do you want to draw?\n\n set an amount by typing the amount and name \"amount name\", or just type \"quit 0\"\n\nEnter Argument: ");
+    printf("How much money do you want to draw?\n\n set an amount by typing the amount \"amount\", or just type \"quit 0\"\n\nEnter Argument: ");
     char name[20];
-    char *old_amount;
+    int amount;
 
-    scanf("%19s",old_amount);
-    int amount = atoi(old_amount);
+    scanf("%19s %d",name, &amount);
+    
     if(!strcmp(name,"quit")||!strcmp(name,"Quit")){ //see if user wants to quit
         printf("\e[1;1H\e[2J");
         printf("Quit!");
@@ -172,7 +169,7 @@ void draw(struct Bank *bank, struct Account *logged) {
         else if(!strcmp(bank->account[i].name, logged->name)){
             printf("\e[1;1H\e[2J");
             logged->balance=logged->balance-amount;
-            bank->account[logged->id].balance=bank->account[logged->id].balance-amount;
+            bank->account[logged->id-1].balance=bank->account[logged->id-1].balance-amount;
             printf("you have drawn %d of money, %s",amount, logged->name);
             return;
         }
@@ -182,3 +179,4 @@ void draw(struct Bank *bank, struct Account *logged) {
     printf("\n your friend doesn't exist!");
     
 
+}

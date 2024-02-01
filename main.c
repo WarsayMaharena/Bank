@@ -7,14 +7,14 @@ int main (int argc, char *argv[]) {
     printf("\nWelcome!");
     struct Bank bank;
     for(int i = 0; i<30; i++){
-        bank.account[i].name="";
-        bank.account[i].password="";
+        strcpy(bank.account[i].name,"");
+        strcpy(bank.account[i].password,"");
         bank.account[i].id=0;
         bank.account[i].balance=0;
     }
     
     struct Account loggedacc;
-    loggedacc.name="";
+    strcpy(loggedacc.name,"");
     //bank.account[0]=create_account("Warsay Maharena", "SPONYSTREET");
     while(1){
  
@@ -29,12 +29,13 @@ int main (int argc, char *argv[]) {
         printf("5. log into an account\n");
         printf("5. log out of an account\n");
         printf("7. quit the application\n\n");
+        printf("logged: %s\n",loggedacc.name);
         printf("Enter Argument: ");
 
         scanf("%19s", str1);
         printf("\e[1;1H\e[2J");
-
-        if(strcmp("4",str1) && strcmp("5",str1) && loggedacc.name == ""){
+        printf("%d %d %d",strcmp("4",str1),strcmp("5",str1),strcmp(loggedacc.name,""));
+        if(strcmp("4",str1) && strcmp("5",str1) && !strcmp(loggedacc.name,"")){
             printf("\nyou aren't logged in!");
 
         }
@@ -70,7 +71,7 @@ int main (int argc, char *argv[]) {
 
         else if(!strcmp("6",str1)){
             printf("\nyou have decided to log out");
-            loggedacc.name = "";
+            strcpy(loggedacc.name,"");
         }
 
         else if(!strcmp("7",str1)){
