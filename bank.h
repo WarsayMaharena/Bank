@@ -119,7 +119,7 @@ void give_money(struct Bank *bank, struct Account *logged){
 
 void deposit(struct Bank *bank, struct Account *logged) {
     printf("\e[1;1H\e[2J");
-    printf("How much money do you want to deposit?\n\n set an amount by typing the amount \"give {amount}\", or just type \"quit 0\"\n\nEnter Argument: ");
+    printf("How much money do you want to deposit?\n\n set an amount by typing the amount \"deposit {amount}\", or just type \"quit 0\"\n\nEnter Argument: ");
     char name[20];
     int amount;
 
@@ -148,7 +148,7 @@ void deposit(struct Bank *bank, struct Account *logged) {
 
 void draw(struct Bank *bank, struct Account *logged) {
     printf("\e[1;1H\e[2J");
-    printf("How much money do you want to draw?\n\n set an amount by typing the amount \"amount\", or just type \"quit 0\"\n\nEnter Argument: ");
+    printf("How much money do you want to draw?\n\n set an amount by typing the amount \"draw {amount}\", or just type \"quit 0\"\n\nEnter Argument: ");
     char name[20];
     int amount;
 
