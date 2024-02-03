@@ -27,14 +27,14 @@ int main (int argc, char *argv[]) {
         printf("3. Give money to another accountt\n");
         printf("4. Register an account\n");
         printf("5. log into an account\n");
-        printf("5. log out of an account\n");
+        printf("6. log out of an account\n");
         printf("7. quit the application\n\n");
         printf("logged: %s\n",loggedacc.name);
         printf("Enter Argument: ");
 
         scanf("%19s", str1);
         printf("\e[1;1H\e[2J");
-        printf("%d %d %d",strcmp("4",str1),strcmp("5",str1),strcmp(loggedacc.name,""));
+        
         if(strcmp("4",str1) && strcmp("5",str1) && !strcmp(loggedacc.name,"")){
             printf("\nyou aren't logged in!");
 

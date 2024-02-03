@@ -85,7 +85,7 @@ void log_into_account(struct Bank *bank, struct Account *logged){
 
 void give_money(struct Bank *bank, struct Account *logged){
     printf("\e[1;1H\e[2J");
-    printf("Who do you want to give your money to?\n\n give monet by typing the amount and name \"amount name\", or just type \"quit 0\"\n\nEnter Argument: ");
+    printf("Who do you want to give your money to?\n\n give monet by typing the name and amount \"name {amount}\", or just type \"quit 0\"\n\nEnter Argument: ");
     char name[20];
     int amount;
 
